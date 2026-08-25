@@ -27,7 +27,10 @@ function AddProductPage() {
 
   const { data: categories } = useQuery({
     queryKey: ['categories'],
-    queryFn: () => getCategories(),  // add () => to wrap it
+    queryFn: async () => {
+        const result = await getCategories()
+        return result
+    },
     })
 
   const {
@@ -108,10 +111,10 @@ function AddProductPage() {
                 className="mt-1 w-full border border-gray-300 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
               >
                 <option value="">Select a category</option>
-                {categories?.map((cat) => (
-                  <option key={cat.id} value={cat.id}>
+                {(categories ?? []).map((cat) => (
+                <option key={cat.id} value={cat.id}>
                     {cat.name}
-                  </option>
+                </option>
                 ))}
               </select>
               {errors.category_id && <p className="text-red-500 text-sm mt-1">{errors.category_id.message}</p>}
