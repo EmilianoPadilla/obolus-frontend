@@ -42,15 +42,8 @@ function Navbar() {
             )}
           </Link>
 
-          {/* Add this — only shows when logged in */}
-          {user && (  
-          <Link to="/sell" className="hover:text-gray-300 transition-colors"> 
-          Sell
-          </Link>
-          )}
-
           {user && (
-            <> {/* using react fragmrny since I'm returning two elements (Sell and My Products) inside the {user && ...} condition. */}
+            <> {/* using react fragment since I'm returning two elements (Sell and My Products) inside the {user && ...} condition. */}
               <Link to="/sell" className="hover:text-gray-300 transition-colors">
                 Sell
               </Link>
