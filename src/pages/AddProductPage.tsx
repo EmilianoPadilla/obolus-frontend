@@ -27,8 +27,8 @@ function AddProductPage() {
 
   const { data: categories } = useQuery({
     queryKey: ['categories'],
-    queryFn: getCategories,
-  })
+    queryFn: () => getCategories(),  // add () => to wrap it
+    })
 
   const {
     register,

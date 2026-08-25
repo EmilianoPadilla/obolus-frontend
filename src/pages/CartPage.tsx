@@ -40,7 +40,7 @@ function CartPage() {
       )
       return { previousCart }
     },
-    onError: (err, variables, context) => {
+    onError: (_err, _variables, context) => {
       queryClient.setQueryData(['cart'], context?.previousCart)
       toast.error('Failed to update cart!')
     },
@@ -68,7 +68,7 @@ function CartPage() {
       )
       return { previousCart }
     },
-    onError: (err, variables, context) => {
+    onError: (_err, _variables, context) => {
       queryClient.setQueryData(['cart'], context?.previousCart)
       toast.error('Failed to update cart!')
     },
@@ -89,7 +89,7 @@ function CartPage() {
       )
       return { previousCart }
     },
-    onError: (err, variables, context) => {
+    onError: (_err, _variables, context) => {
       queryClient.setQueryData(['cart'], context?.previousCart)
       toast.error('Failed to remove item!')
     },
@@ -108,7 +108,7 @@ function CartPage() {
       queryClient.setQueryData(['cart'], [])
       return { previousCart }
     },
-    onError: (err, variables, context) => {
+    onError: (_err, _variables, context) => {
       queryClient.setQueryData(['cart'], context?.previousCart)
       toast.error('Failed to clear cart!')
     },
