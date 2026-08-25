@@ -4,39 +4,115 @@ import { Button } from '@/components/ui/button'
 import { Card, CardContent } from '@/components/ui/card'
 import { Skeleton } from '@/components/ui/skeleton'
 import toast from 'react-hot-toast'
-import { getCart, updateCartItem, removeFromCart, clearCartApi} from '../api/cart'
+import {
+  getCart,
+  updateCartItem,
+  removeFromCart,
+  clearCartApi,
+} from '../api/cart'
+import type { CartItemWithProduct } from '../api/cart'
 
 function CartPage() {
   const queryClient = useQueryClient()
 
   const { data: items, isLoading } = useQuery({
     queryKey: ['cart'],
-    queryFn: getCart,
-  })
-
-  const { mutate: increment } = useMutation({
-    mutationFn: ({ item_id, quantity }: { item_id: number; quantity: number }) =>
-      updateCartItem(item_id, quantity + 1),
-    onSuccess: () => queryClient.invalidateQueries({ queryKey: ['cart'] }),
-  })
-
-  const { mutate: decrement } = useMutation({
-    mutationFn: ({ item_id, quantity }: { item_id: number; quantity: number }) =>
-      updateCartItem(item_id, quantity - 1),
-    onSuccess: () => queryClient.invalidateQueries({ queryKey: ['cart'] }),
-  })
-
-  const { mutate: remove } = useMutation({
-    mutationFn: (item_id: number) => removeFromCart(item_id),
-    onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ['cart'] })
-      toast.success('Item removed from cart!')
+    queryFn: async () => {
+      const data = await getCart()
+      return data.sort((a, b) => a.id - b.id)
     },
   })
 
+  // increment with optimistic update
+  const { mutate: increment } = useMutation({
+    mutationFn: ({ item_id, quantity }: { item_id: number; quantity: number }) =>
+      updateCartItem(item_id, quantity + 1),
+    onMutate: async ({ item_id, quantity }) => {
+      await queryClient.cancelQueries({ queryKey: ['cart'] })
+      const previousCart = queryClient.getQueryData<CartItemWithProduct[]>(['cart'])
+
+      queryClient.setQueryData<CartItemWithProduct[]>(['cart'], (old) =>
+        old?.map((item) =>
+          item.id === item_id
+            ? { ...item, quantity: quantity + 1 }
+            : item
+        )
+      )
+      return { previousCart }
+    },
+    onError: (err, variables, context) => {
+      queryClient.setQueryData(['cart'], context?.previousCart)
+      toast.error('Failed to update cart!')
+    },
+    onSettled: () => {
+      queryClient.invalidateQueries({ queryKey: ['cart'] })
+    },
+  })
+
+  // decrement with optimistic update
+  const { mutate: decrement } = useMutation({
+    mutationFn: ({ item_id, quantity }: { item_id: number; quantity: number }) =>
+      updateCartItem(item_id, quantity - 1),
+    onMutate: async ({ item_id, quantity }) => {
+      await queryClient.cancelQueries({ queryKey: ['cart'] })
+      const previousCart = queryClient.getQueryData<CartItemWithProduct[]>(['cart'])
+
+      queryClient.setQueryData<CartItemWithProduct[]>(['cart'], (old) =>
+        old
+          ?.map((item) =>
+            item.id === item_id
+              ? { ...item, quantity: quantity - 1 }
+              : item
+          )
+          .filter((item) => item.quantity > 0)
+      )
+      return { previousCart }
+    },
+    onError: (err, variables, context) => {
+      queryClient.setQueryData(['cart'], context?.previousCart)
+      toast.error('Failed to update cart!')
+    },
+    onSettled: () => {
+      queryClient.invalidateQueries({ queryKey: ['cart'] })
+    },
+  })
+
+  // remove with optimistic update
+  const { mutate: remove } = useMutation({
+    mutationFn: (item_id: number) => removeFromCart(item_id),
+    onMutate: async (item_id) => {
+      await queryClient.cancelQueries({ queryKey: ['cart'] })
+      const previousCart = queryClient.getQueryData<CartItemWithProduct[]>(['cart'])
+
+      queryClient.setQueryData<CartItemWithProduct[]>(['cart'], (old) =>
+        old?.filter((item) => item.id !== item_id)
+      )
+      return { previousCart }
+    },
+    onError: (err, variables, context) => {
+      queryClient.setQueryData(['cart'], context?.previousCart)
+      toast.error('Failed to remove item!')
+    },
+    onSettled: () => {
+      queryClient.invalidateQueries({ queryKey: ['cart'] })
+      toast.success('Item removed!')
+    },
+  })
+
+  // clear with optimistic update
   const { mutate: clear } = useMutation({
     mutationFn: clearCartApi,
-    onSuccess: () => {
+    onMutate: async () => {
+      await queryClient.cancelQueries({ queryKey: ['cart'] })
+      const previousCart = queryClient.getQueryData<CartItemWithProduct[]>(['cart'])
+      queryClient.setQueryData(['cart'], [])
+      return { previousCart }
+    },
+    onError: (err, variables, context) => {
+      queryClient.setQueryData(['cart'], context?.previousCart)
+      toast.error('Failed to clear cart!')
+    },
+    onSettled: () => {
       queryClient.invalidateQueries({ queryKey: ['cart'] })
       toast.success('Cart cleared!')
     },
