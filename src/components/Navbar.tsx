@@ -42,6 +42,13 @@ function Navbar() {
             )}
           </Link>
 
+          {/* Add this — only shows when logged in */}
+          {user && (  
+          <Link to="/sell" className="hover:text-gray-300 transition-colors"> 
+          Sell
+          </Link>
+          )}
+
           {user ? (
             <div className="flex items-center gap-4">
               <span className="text-gray-300">Hi, {user.username}!</span>

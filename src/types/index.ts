@@ -16,6 +16,7 @@ export interface Product {
   price: number
   stock: number
   image_url: string | null
+  owner_username: string | null
 }
 
 export interface ProductCreate {

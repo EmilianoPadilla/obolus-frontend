@@ -64,6 +64,9 @@ function ProductDetailPage() {
               ? `${product.stock} in stock`
               : 'Out of stock'}
           </p>
+          <p className="text-gray-500 text-sm">
+            Sold by: <span className="font-medium">{product.owner_username || 'Obolus'}</span>
+          </p>
 
           <Button
             onClick={() => addToCartMutation()}
