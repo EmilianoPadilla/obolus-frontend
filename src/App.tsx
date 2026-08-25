@@ -11,6 +11,7 @@ import RegisterPage from './pages/RegisterPage'
 import NotFoundPage from './pages/NotFoundPage'
 import PrivateRoute from './components/PrivateRoute'
 import AddProductPage from './pages/AddProductPage'
+import MyProductsPage from './pages/MyProductsPage'
 
 function App() {
   return (
@@ -26,6 +27,8 @@ function App() {
           <Route path="/register" element={<RegisterPage />} />
           <Route path="*" element={<NotFoundPage />} />
           <Route path="/sell" element={ <PrivateRoute> <AddProductPage /> </PrivateRoute> } />
+          <Route path="/my-products" element={ <PrivateRoute> <MyProductsPage /> </PrivateRoute> }
+/>
         </Routes>
       </main>
     </div>

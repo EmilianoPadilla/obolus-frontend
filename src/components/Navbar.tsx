@@ -49,6 +49,17 @@ function Navbar() {
           </Link>
           )}
 
+          {user && (
+            <> {/* using react fragmrny since I'm returning two elements (Sell and My Products) inside the {user && ...} condition. */}
+              <Link to="/sell" className="hover:text-gray-300 transition-colors">
+                Sell
+              </Link>
+              <Link to="/my-products" className="hover:text-gray-300 transition-colors">
+                My Products
+              </Link>
+            </>
+          )}
+
           {user ? (
             <div className="flex items-center gap-4">
               <span className="text-gray-300">Hi, {user.username}!</span>
