@@ -53,8 +53,8 @@ function HomePage() {
     <div className="flex flex-col gap-16">
 
       {/* Hero Section */}
-      <section className="relative bg-gray-900 text-white rounded-2xl px-8 py-16 text-center">
-        <img src={logo} alt="Obolus" className="h-60 w-auto mx-auto -mt-10 mb-6" />
+      <section className="relative bg-gray-900 text-white rounded-2xl px-8 py-8 text-center">
+        <img src={logo} alt="Obolus" className="h-60 w-auto mx-auto mt-0 mb-6" />
         <h1 className="text-5xl font-bold mb-4">
           Buy and Sell <span className="text-blue-400">Anything</span>
         </h1>
