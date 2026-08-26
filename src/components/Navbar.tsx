@@ -27,6 +27,7 @@ function Navbar() {
   return (
     <nav className="bg-gray-900 text-white px-6 py-4">
       <div className="container mx-auto flex justify-between items-center">
+        
         <Link to="/" className="flex items-center gap-2">
           <img src={logo} alt="Obolus" className="h-8 w-auto" />
           <span className="text-2xl font-bold text-white hover:text-gray-300 transition-colors">
@@ -39,6 +40,10 @@ function Navbar() {
             Products
           </Link>
 
+          <Link to="/categories" className="hover:text-gray-300 transition-colors">
+            Categories
+          </Link>
+          
           <Link to="/cart" className="relative hover:text-gray-300 transition-colors">
             Cart
             {user && itemCount > 0 && (

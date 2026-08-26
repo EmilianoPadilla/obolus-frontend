@@ -53,16 +53,16 @@ function HomePage() {
     <div className="flex flex-col gap-16">
 
       {/* Hero Section */}
-      <section className="relative bg-gray-900 text-white rounded-2xl px-8 py-8 text-center">
+      <section className="relative bg-gray-900 text-white rounded-2xl px-8 pt-8 pb-0 text-center">
         <img src={logo} alt="Obolus" className="h-60 w-auto mx-auto mt-0 mb-6" />
         <h1 className="text-5xl font-bold mb-4">
-          Buy and Sell <span className="text-blue-400">Anything</span>
+          Buy and sell <span className="text-blue-400">anything!</span>
         </h1>
-        <p className="text-gray-300 text-lg mb-8 max-w-xl mx-auto">
+        <p className="text-gray-300 text-lg mb-4 max-w-xl mx-auto">
           Obolus is a marketplace where anyone can buy and sell products.
           Find great deals or start selling today!
         </p>
-        <div className="flex gap-4 justify-center">
+        <div className="flex gap-4 justify-center" >
           <Link to="/products">
             <Button className="bg-blue-500 hover:bg-blue-600 cursor-pointer px-8 py-5 text-lg">
               Shop Now
@@ -74,8 +74,12 @@ function HomePage() {
             </Button>
           </Link>
         </div>
+        <p className="text-gray-300 text-xs mb-3 max-w-xl mx-auto mt-6 pb-0">
+          This website is purely for educational purposes and is not intended for commercial use. <br /> 
+          All products listed are only for demonstration purposes. 
+        </p>
         {/* Move this OUTSIDE the flex div, inside the section */}
-        <p className="absolute bottom-3 right-4 text-sm text-gray-400">
+        <p className="absolute bottom-3 right-4 text-sm text-gray-400 ">
           Developed by Emiliano Padilla
         </p>
       </section>

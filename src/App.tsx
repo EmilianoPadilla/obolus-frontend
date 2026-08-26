@@ -12,6 +12,8 @@ import NotFoundPage from './pages/NotFoundPage'
 import PrivateRoute from './components/PrivateRoute'
 import AddProductPage from './pages/AddProductPage'
 import MyProductsPage from './pages/MyProductsPage'
+import CategoriesPage from './pages/CategoriesPage'
+import CategoryDetailPage from './pages/CategoryDetailPage'
 
 function App() {
   return (
@@ -27,7 +29,9 @@ function App() {
           <Route path="/register" element={<RegisterPage />} />
           <Route path="*" element={<NotFoundPage />} />
           <Route path="/sell" element={ <PrivateRoute> <AddProductPage /> </PrivateRoute> } />
-          <Route path="/my-products" element={ <PrivateRoute> <MyProductsPage /> </PrivateRoute> }
+          <Route path="/my-products" element={ <PrivateRoute> <MyProductsPage /> </PrivateRoute> } />
+          <Route path="/categories/:id" element={<CategoryDetailPage />} />
+          <Route path="/categories" element={<CategoriesPage />} 
 />
         </Routes>
       </main>
