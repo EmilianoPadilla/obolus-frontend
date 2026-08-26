@@ -87,3 +87,4 @@ function Navbar() {
       </div>
     </nav>
   )
+  }
