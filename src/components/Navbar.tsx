@@ -3,6 +3,7 @@ import { useQuery } from '@tanstack/react-query'
 import { Button } from '@/components/ui/button'
 import useAuthStore from '../store/authStore'
 import { getCart } from '../api/cart'
+import logo from '../assets/logo.png'
 
 function Navbar() {
   const { user, logout } = useAuthStore()
@@ -23,9 +24,12 @@ function Navbar() {
 
   return (
     <nav className="bg-gray-900 text-white px-6 py-4">
-      <div className="container mx-auto flex justify-between items-center">
-        <Link to="/" className="text-2xl font-bold text-white hover:text-gray-300 transition-colors">
-          Obolus
+
+        <Link to="/" className="flex items-center gap-2">
+          <img src={logo} alt="Obolus" className="h-8 w-auto" />
+          <span className="text-2xl font-bold text-white hover:text-gray-300 transition-colors">
+            Obolus
+          </span>
         </Link>
 
         <div className="flex items-center gap-6">
