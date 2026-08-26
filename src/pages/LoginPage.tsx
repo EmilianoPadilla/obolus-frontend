@@ -10,6 +10,7 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { loginUser } from '../api/auth'
 import useAuthStore from '../store/authStore'
 import { getMe } from '../api/users'
+import { useQueryClient } from '@tanstack/react-query'
 
 const loginSchema = z.object({
   email: z.string().email('Please enter a valid email'),
@@ -21,6 +22,7 @@ type LoginFormData = z.infer<typeof loginSchema>
 function LoginPage() {
   const navigate = useNavigate()
   const { login } = useAuthStore()
+  const queryClient = useQueryClient()
 
   const {
     register,
@@ -42,7 +44,7 @@ function LoginPage() {
     
     // store user and token in Zustand
     login(user, data.access_token)
-    
+    queryClient.removeQueries({ queryKey: ['cart'] })  // clear previous cart cache
     toast.success(`Welcome back, ${user.username}!`)
     navigate('/products')
   },

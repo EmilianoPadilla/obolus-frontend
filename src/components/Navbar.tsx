@@ -1,5 +1,5 @@
 import { Link, useNavigate } from 'react-router-dom'
-import { useQuery } from '@tanstack/react-query'
+import { useQuery, useQueryClient } from '@tanstack/react-query'
 import { Button } from '@/components/ui/button'
 import useAuthStore from '../store/authStore'
 import { getCart } from '../api/cart'
@@ -8,6 +8,7 @@ import logo from '../assets/logo.png'
 function Navbar() {
   const { user, logout } = useAuthStore()
   const navigate = useNavigate()
+  const queryClient = useQueryClient()
 
   const { data: cartItems } = useQuery({
     queryKey: ['cart'],
@@ -19,6 +20,7 @@ function Navbar() {
 
   function handleLogout() {
     logout()
+    queryClient.removeQueries({ queryKey: ['cart'] })  // clear cart cache on logout
     navigate('/login')
   }
 
