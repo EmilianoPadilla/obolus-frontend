@@ -1,5 +1,125 @@
+import { useQuery } from '@tanstack/react-query'
+import { Link } from 'react-router-dom'
+import { Button } from '@/components/ui/button'
+import { Skeleton } from '@/components/ui/skeleton'
+import { getProducts } from '../api/products'
+import type { Product } from '../types'
+
+function ProductCard({ product }: { product: Product }) {
+  return (
+    <Link
+      to={`/products/${product.id}`}
+      className="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-xl transition-shadow duration-300"
+    >
+      <img
+        src={product.image_url || `https://placehold.co/400x300?text=${product.name}`}
+        alt={product.name}
+        className="w-full h-48 object-cover"
+      />
+      <div className="p-4">
+        <h3 className="font-bold text-gray-800">{product.name}</h3>
+        <p className="text-blue-600 font-semibold mt-1">${product.price}</p>
+        <p className="text-gray-400 text-xs mt-1">by {product.owner_username || 'Obolus'}</p>
+      </div>
+    </Link>
+  )
+}
+
+function ProductGridSkeleton() {
+  return (
+    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+      {Array.from({ length: 4 }).map((_, i) => (
+        <div key={i} className="flex flex-col gap-2">
+          <Skeleton className="h-48 w-full" />
+          <Skeleton className="h-4 w-3/4" />
+          <Skeleton className="h-4 w-1/2" />
+        </div>
+      ))}
+    </div>
+  )
+}
+
 function HomePage() {
-  return <h1 className="text-3xl font-bold">Welcome to Obolus</h1>
+  const { data: products, isLoading } = useQuery({
+    queryKey: ['products'],
+    queryFn: () => getProducts(100),
+  })
+
+  const featuredProducts = products?.slice(0, 4) ?? []
+  const lowStockProducts = products?.filter((p) => p.stock > 0 && p.stock < 3) ?? []
+
+  return (
+    <div className="flex flex-col gap-16">
+
+      {/* Hero Section */}
+      <section className="bg-gray-900 text-white rounded-2xl px-8 py-16 text-center">
+        <h1 className="text-5xl font-bold mb-4">
+          Buy and Sell <span className="text-blue-400">Anything</span>
+        </h1>
+        <p className="text-gray-300 text-lg mb-8 max-w-xl mx-auto">
+          Obolus is a marketplace where anyone can buy and sell products.
+          Find great deals or start selling today!
+        </p>
+        <div className="flex gap-4 justify-center">
+          <Link to="/products">
+            <Button className="bg-blue-500 hover:bg-blue-600 cursor-pointer px-8 py-5 text-lg">
+              Shop Now
+            </Button>
+          </Link>
+          <Link to="/sell">
+            <Button variant="outline" className="cursor-pointer px-8 py-5 text-lg text-white border-white hover:bg-gray-700">
+              Start Selling
+            </Button>
+          </Link>
+        </div>
+      </section>
+
+      {/* Featured Products */}
+      <section>
+        <div className="flex justify-between items-center mb-6">
+          <h2 className="text-2xl font-bold text-gray-800">Featured Products</h2>
+          <Link to="/products" className="text-blue-500 hover:underline text-sm">
+            View all →
+          </Link>
+        </div>
+
+        {isLoading ? (
+          <ProductGridSkeleton />
+        ) : featuredProducts.length === 0 ? (
+          <p className="text-gray-500 text-center py-8">No products yet — be the first to sell!</p>
+        ) : (
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+            {featuredProducts.map((product: Product) => (
+              <ProductCard key={product.id} product={product} />
+            ))}
+          </div>
+        )}
+      </section>
+
+      {/* Almost Gone Section */}
+      {!isLoading && lowStockProducts.length > 0 && (
+        <section>
+          <div className="flex justify-between items-center mb-6">
+            <div>
+              <h2 className="text-2xl font-bold text-gray-800">Almost Gone</h2>
+              <p className="text-gray-500 text-sm mt-1">Less than 3 left in stock — grab them before they're gone!</p>
+            </div>
+          </div>
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+            {lowStockProducts.map((product: Product) => (
+              <div key={product.id} className="relative">
+                <div className="absolute top-2 right-2 bg-red-500 text-white text-xs px-2 py-1 rounded-full z-10">
+                  Only {product.stock} left!
+                </div>
+                <ProductCard product={product} />
+              </div>
+            ))}
+          </div>
+        </section>
+      )}
+
+    </div>
+  )
 }
 
 export default HomePage
