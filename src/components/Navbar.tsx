@@ -24,7 +24,7 @@ function Navbar() {
 
   return (
     <nav className="bg-gray-900 text-white px-6 py-4">
-
+      <div className="container mx-auto flex justify-between items-center">
         <Link to="/" className="flex items-center gap-2">
           <img src={logo} alt="Obolus" className="h-8 w-auto" />
           <span className="text-2xl font-bold text-white hover:text-gray-300 transition-colors">
@@ -47,7 +47,7 @@ function Navbar() {
           </Link>
 
           {user && (
-            <> {/* using react fragment since I'm returning two elements (Sell and My Products) inside the {user && ...} condition. */}
+            <>
               <Link to="/sell" className="hover:text-gray-300 transition-colors">
                 Sell
               </Link>
@@ -87,6 +87,3 @@ function Navbar() {
       </div>
     </nav>
   )
-}
-
-export default Navbar
