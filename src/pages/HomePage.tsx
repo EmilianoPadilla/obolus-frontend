@@ -4,6 +4,7 @@ import { Button } from '@/components/ui/button'
 import { Skeleton } from '@/components/ui/skeleton'
 import { getProducts } from '../api/products'
 import type { Product } from '../types'
+import logo from '../assets/logo.png'
 
 function ProductCard({ product }: { product: Product }) {
   return (
@@ -52,7 +53,8 @@ function HomePage() {
     <div className="flex flex-col gap-16">
 
       {/* Hero Section */}
-      <section className="bg-gray-900 text-white rounded-2xl px-8 py-16 text-center">
+      <section className="relative bg-gray-900 text-white rounded-2xl px-8 py-16 text-center">
+        <img src={logo} alt="Obolus" className="h-60 w-auto mx-auto -mt-10 mb-6" />
         <h1 className="text-5xl font-bold mb-4">
           Buy and Sell <span className="text-blue-400">Anything</span>
         </h1>
@@ -72,6 +74,10 @@ function HomePage() {
             </Button>
           </Link>
         </div>
+        {/* Move this OUTSIDE the flex div, inside the section */}
+        <p className="absolute bottom-3 right-4 text-sm text-gray-400">
+          Developed by Emiliano Padilla
+        </p>
       </section>
 
       {/* Featured Products */}
