@@ -122,7 +122,7 @@ function Navbar() {
           )}
 
           {user ? (
-            <div className="flex flex-col gap-2 "> className=" text-sm text-gray-400 ">
+            <div className="flex flex-col gap-2"> 
               <span className="text-gray-300">Hi, {user.username}!</span>
               <Button
                 variant="outline"
