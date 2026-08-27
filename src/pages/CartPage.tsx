@@ -11,6 +11,7 @@ import {
   clearCartApi,
 } from '../api/cart'
 import type { CartItemWithProduct } from '../api/cart'
+import { useNavigate } from 'react-router-dom'
 
 function CartPage() {
   const queryClient = useQueryClient()
@@ -140,6 +141,8 @@ function CartPage() {
     (sum, item) => sum + item.product_price * item.quantity, 0
   )
 
+  const navigate = useNavigate()
+
   return (
     <div className="max-w-4xl mx-auto">
       <h1 className="text-3xl font-bold text-gray-800 mb-8">Your Cart</h1>
@@ -210,7 +213,7 @@ function CartPage() {
           >
             Clear Cart
           </Button>
-          <Button className="cursor-pointer">
+          <Button className="cursor-pointer" onClick={() => navigate('/checkout')}>
             Checkout
           </Button>
         </div>

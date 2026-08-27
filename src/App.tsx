@@ -15,6 +15,7 @@ import MyProductsPage from './pages/MyProductsPage'
 import CategoriesPage from './pages/CategoriesPage'
 import CategoryDetailPage from './pages/CategoryDetailPage'
 import Footer from './components/Footer'
+import CheckoutPage from './pages/CheckoutPage'
 
 function App() {
   return (
@@ -32,8 +33,9 @@ function App() {
           <Route path="/sell" element={ <PrivateRoute> <AddProductPage /> </PrivateRoute> } />
           <Route path="/my-products" element={ <PrivateRoute> <MyProductsPage /> </PrivateRoute> } />
           <Route path="/categories/:id" element={<CategoryDetailPage />} />
-          <Route path="/categories" element={<CategoriesPage />} 
-/>
+          <Route path="/categories" element={<CategoriesPage />} />
+          <Route path="/checkout" element={<CheckoutPage />} />
+
         </Routes>
       </main>
       <Footer />
