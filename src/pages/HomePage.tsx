@@ -6,12 +6,17 @@ import { getProducts } from '../api/products'
 import type { Product } from '../types'
 import logo from '../assets/logo.png'
 
-function ProductCard({ product }: { product: Product }) {
+function ProductCard({ product, showBadge = false }: { product: Product, showBadge?: boolean }) {
   return (
     <Link
       to={`/products/${product.id}`}
-      className="bg-white rounded-lg shadow-md border border-gray-200 overflow-hidden hover:shadow-xl transition-shadow duration-300"
+      className="relative bg-white rounded-lg shadow-md border border-gray-200 overflow-hidden hover:shadow-xl transition-shadow duration-300"
     >
+      {showBadge && (
+        <div className="absolute top-2 right-2 bg-red-500 text-white text-xs px-2 py-1 rounded-full z-10">
+          Only {product.stock} left!
+        </div>
+      )}
       <img
         src={product.image_url || `https://placehold.co/400x300?text=${product.name}`}
         alt={product.name}
@@ -28,7 +33,7 @@ function ProductCard({ product }: { product: Product }) {
 
 function ProductGridSkeleton() {
   return (
-    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+    <div className="grid grid-cols-2 md:grid-cols-2 lg:grid-cols-4 gap-4">
       {Array.from({ length: 4 }).map((_, i) => (
         <div key={i} className="flex flex-col gap-2">
           <Skeleton className="h-48 w-full" />
@@ -62,7 +67,7 @@ function HomePage() {
           Obolus is a marketplace where anyone can buy and sell products.
           Find great deals or start selling today!
         </p>
-        <div className="flex gap-4 justify-center" >
+        <div className="flex gap-4 justify-center">
           <Link to="/products">
             <Button className="bg-blue-500 hover:bg-blue-600 cursor-pointer px-8 py-5 text-lg">
               Shop Now
@@ -75,11 +80,10 @@ function HomePage() {
           </Link>
         </div>
         <p className="text-gray-300 text-xs mb-3 max-w-xl mx-auto mt-6 pb-0">
-          This website is purely for educational purposes and is not intended for commercial use. <br /> 
-          All products listed are only for demonstration purposes. 
+          This website is purely for educational purposes and is not intended for commercial use. <br />
+          All products listed are only for demonstration purposes.
         </p>
-      
-        <p className="absolute bottom-3 right-4 text-xs text-gray-400 ">
+        <p className="absolute bottom-3 right-4 text-xs text-gray-400">
           Developed by Emiliano Padilla
         </p>
       </section>
@@ -117,12 +121,7 @@ function HomePage() {
           </div>
           <div className="grid grid-cols-2 md:grid-cols-2 lg:grid-cols-4 gap-4">
             {lowStockProducts.map((product: Product) => (
-              <div key={product.id} className="relative rounded-lg overflow-hidden">
-                <div className="absolute top-2 right-2 bg-red-500 text-white text-xs px-2 py-1 rounded-full z-10">
-                  Only {product.stock} left!
-                </div>
-                <ProductCard product={product} />
-              </div>
+              <ProductCard key={product.id} product={product} showBadge={true} />
             ))}
           </div>
         </section>
