@@ -4,7 +4,7 @@ import logo from '../assets/logo.png'
 function Footer() {
   return (
     <footer className="bg-gray-900 text-white mt-16">
-      <div className="container mx-auto px-6 py-10 ">
+      <div className="container mx-auto px-6 pt-8 pb-4">
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
 
           {/* Brand */}
@@ -62,7 +62,7 @@ function Footer() {
 
         {/* Bottom bar */}
         <div className="border-t border-gray-700 mt-2 pt-2 flex flex-col md:flex-row justify-between items-center gap-4">
-          <p className="text-gray-500 text-sm">
+          <p className="text-gray-500 text-sm pt-1">
             © 2025 Obolus. All rights reserved.
           </p>
           <p className="text-gray-500 text-sm">

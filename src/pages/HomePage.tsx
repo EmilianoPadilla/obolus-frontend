@@ -59,7 +59,7 @@ function HomePage() {
 
       {/* Hero Section */}
       <section className="relative bg-gray-900 text-white rounded-2xl px-8 pt-8 pb-8 text-center">
-        <img src={logo} alt="Obolus" className="h-60 w-auto mx-auto mt-0 mb-6" />
+        <img src={logo} alt="Obolus" className="h-55 w-auto mx-auto mt-0 mb-6" />
         <h1 className="text-5xl font-bold mb-4">
           Buy and sell <span className="text-blue-400">anything!</span>
         </h1>
