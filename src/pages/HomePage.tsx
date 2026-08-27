@@ -10,7 +10,7 @@ function ProductCard({ product }: { product: Product }) {
   return (
     <Link
       to={`/products/${product.id}`}
-      className="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-xl transition-shadow duration-300"
+      className="bg-white rounded-lg shadow-md border border-gray-200 overflow-hidden hover:shadow-xl transition-shadow duration-300"
     >
       <img
         src={product.image_url || `https://placehold.co/400x300?text=${product.name}`}
@@ -53,7 +53,7 @@ function HomePage() {
     <div className="flex flex-col gap-16">
 
       {/* Hero Section */}
-      <section className="relative bg-gray-900 text-white rounded-2xl px-8 pt-8 pb-0 text-center">
+      <section className="relative bg-gray-900 text-white rounded-2xl px-8 pt-8 pb-8 text-center">
         <img src={logo} alt="Obolus" className="h-60 w-auto mx-auto mt-0 mb-6" />
         <h1 className="text-5xl font-bold mb-4">
           Buy and sell <span className="text-blue-400">anything!</span>
@@ -78,7 +78,7 @@ function HomePage() {
           This website is purely for educational purposes and is not intended for commercial use. <br /> 
           All products listed are only for demonstration purposes. 
         </p>
-        {/* Move this OUTSIDE the flex div, inside the section */}
+      
         <p className="absolute bottom-3 right-4 text-sm text-gray-400 ">
           Developed by Emiliano Padilla
         </p>
