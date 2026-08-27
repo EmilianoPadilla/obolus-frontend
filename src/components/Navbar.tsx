@@ -46,7 +46,7 @@ function Navbar() {
             <Link to="/my-products" className="hidden md:block hover:text-gray-300 transition-colors">
               My Products
             </Link>
-            <Link to="/sell" className="hover:text-gray-300 transition-colors">
+            <Link to="/sell" className="hidden md:block hover:text-gray-300 transition-colors">
               Sell
             </Link>
             </>
@@ -56,7 +56,17 @@ function Navbar() {
         {/* Right side */}
         <div className="flex items-center gap-4">
 
-          
+          {/* Cart — always visible when logged in */}
+          {user && (
+            <Link to="/cart" className="relative hover:text-gray-300 transition-colors">
+              <ShoppingCart className="w-6 h-6" />
+              {itemCount > 0 && (
+                <span className="absolute -top-2 -right-2 bg-blue-500 text-white text-xs rounded-full w-5 h-5 flex items-center justify-center">
+                  {itemCount}
+                </span>
+              )}
+            </Link>
+          )}
 
           {/* Hamburger button — mobile only */}
           <button
@@ -70,18 +80,6 @@ function Navbar() {
           <div className="hidden md:flex items-center gap-6">
             <Link to="/products" className="hover:text-gray-300 transition-colors">Products</Link>
             <Link to="/categories" className="hover:text-gray-300 transition-colors">Categories</Link>
-          
-            {/* Cart —  visible when logged in */}
-            {user && (
-              <Link to="/cart" className="relative hover:text-gray-300 transition-colors">
-                <ShoppingCart className="w-6 h-6" />
-                {user && itemCount > 0 && (
-                  <span className="absolute -top-2 -right-2 bg-blue-500 text-white text-xs rounded-full w-5 h-5 flex items-center justify-center">
-                    {itemCount}
-                  </span>
-                )}
-              </Link>
-            )}
 
             {user && (
               <>
