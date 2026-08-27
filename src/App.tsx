@@ -14,12 +14,13 @@ import AddProductPage from './pages/AddProductPage'
 import MyProductsPage from './pages/MyProductsPage'
 import CategoriesPage from './pages/CategoriesPage'
 import CategoryDetailPage from './pages/CategoryDetailPage'
+import Footer from './components/Footer'
 
 function App() {
   return (
-    <div className="min-h-screen bg-gray-50"> {/* makes the app take at least the full screen height with a light gray background */}
+    <div className="min-h-screen bg-gray-50 flex flex-col"> {/* makes the app take at least the full screen height with a light gray background */}
       <Navbar />
-      <main className="container mx-auto px-4 py-8"> {/* Tailwind class that centers content and adds max width. Padding on x-axis 4 and y-axis 8 */}
+      <main className="container mx-auto px-4 py-8 flex-1"> {/* Tailwind class that centers content and adds max width. Padding on x-axis 4 and y-axis 8 */}
         <Routes>
           <Route path="/" element={<HomePage />} />
           <Route path="/products" element={<ProductsPage />} />
@@ -35,6 +36,7 @@ function App() {
 />
         </Routes>
       </main>
+      <Footer />
     </div>
   )
 }
