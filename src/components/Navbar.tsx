@@ -122,13 +122,13 @@ function Navbar() {
           )}
 
           {user ? (
-            <div className="flex flex-col gap-2 absolute top-10 right-4"> 
+            <div className="flex flex-col gap-2 "> className=" text-sm text-gray-400 ">
               <span className="text-gray-300">Hi, {user.username}!</span>
               <Button
                 variant="outline"
                 size="sm"
                 onClick={() => { handleLogout(); setIsOpen(false) }}
-                className="text-white border-white hover:bg-gray-700 cursor-pointer w-fit justify-right"
+                className="text-white border-white hover:bg-gray-700 cursor-pointer w-fit"
               >
                 Logout
               </Button>
