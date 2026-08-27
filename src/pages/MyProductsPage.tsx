@@ -175,7 +175,7 @@ function MyProductsPage() {
       <div className="dark-overlay">
         <Dialog open={!!editingProduct} onOpenChange={() => setEditingProduct(null)}>
           <DialogContent 
-            overlayClassName="bg-black/5 backdrop-blur-xl" 
+            overlayClassName="bg-black/5 backdrop-blur-xl " 
             className="ring-2 ring-blue-500"
           >
             <DialogHeader>
