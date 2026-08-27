@@ -98,7 +98,7 @@ function HomePage() {
         ) : featuredProducts.length === 0 ? (
           <p className="text-gray-500 text-center py-8">No products yet — be the first to sell!</p>
         ) : (
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+          <div className="grid grid-cols-2 md:grid-cols-2 lg:grid-cols-4 gap-4">
             {featuredProducts.map((product: Product) => (
               <ProductCard key={product.id} product={product} />
             ))}
@@ -115,7 +115,7 @@ function HomePage() {
               <p className="text-gray-500 text-sm mt-1">Less than 3 left in stock — grab them before they're gone!</p>
             </div>
           </div>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+          <div className="grid grid-cols-2 md:grid-cols-2 lg:grid-cols-4 gap-4">
             {lowStockProducts.map((product: Product) => (
               <div key={product.id} className="relative">
                 <div className="absolute top-2 right-2 bg-red-500 text-white text-xs px-2 py-1 rounded-full z-10">

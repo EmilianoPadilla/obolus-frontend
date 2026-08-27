@@ -35,7 +35,7 @@ function ProductsPage() {
   return ( //display the list of products in a grid layout
     <div>
       <h1 className="text-3xl font-bold text-gray-800 mb-8">Products</h1>
-      <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-6">
+      <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
         {products.map((product: Product) => (
           <Link
             key={product.id}
@@ -43,9 +43,9 @@ function ProductsPage() {
             className="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-xl transition-shadow duration-300"
           >
             <img
-              src={product.image_url || `https://placehold.co/400x300?text=${product.name}`} //If image_url is null → show a placeholder with the product name
+              src={product.image_url || `https://placehold.co/400x300?text=${product.name}`}
               alt={product.name}
-              className="w-full h-48 object-cover"
+              className="w-full h-32 md:h-48 object-cover"
             />
             <div className="p-4">
               <h2 className="font-bold text-lg text-gray-800">{product.name}</h2>
