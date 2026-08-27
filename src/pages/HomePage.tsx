@@ -52,7 +52,7 @@ function HomePage() {
   })
 
   const featuredProducts = products?.slice(0, 8) ?? []
-  const lowStockProducts = products?.filter((p) => p.stock > 0 && p.stock < 3).slice(0, 8) ?? []
+  const lowStockProducts = products?.filter((p) => p.stock > 0 && p.stock < 4).slice(0, 8) ?? []
 
   return (
     <div className="flex flex-col gap-16">
@@ -116,9 +116,9 @@ function HomePage() {
             <div className="flex justify-between items-center mb-6">
               <div>
                 <h2 className="text-2xl font-bold text-gray-800">Almost Gone</h2>
-                <p className="text-gray-500 text-sm mt-1">Less than 3 left in stock — grab them before they're gone!</p>
+                <p className="text-gray-500 text-sm mt-1">3 or less items left in stock — grab them before they're gone!</p>
               </div>
-              <Link to="/products" className="text-blue-500 hover:underline text-sm">
+              <Link to="/products?filter=almost-gone" className="text-blue-500 hover:underline text-sm">
                 View all →
               </Link>
             </div>

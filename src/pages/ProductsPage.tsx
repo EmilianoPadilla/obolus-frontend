@@ -7,15 +7,20 @@ import type { Product } from '../types'
 function ProductsPage() {
   const [searchParams] = useSearchParams()
   const search = searchParams.get('search') ?? ''
+  const filter = searchParams.get('filter') ?? ''
 
   const { data: products, isLoading, isError } = useQuery({
     queryKey: ['products'],
     queryFn: () => getProducts(100),
   })
 
-  const filtered = products?.filter((p) =>
-    p.name.toLowerCase().includes(search.toLowerCase())
-  ) ?? []
+  const filtered = products?.filter((p) => {
+  const matchesSearch = p.name.toLowerCase().includes(search.toLowerCase())
+  const matchesFilter = filter === 'almost-gone' ? p.stock > 0 && p.stock < 3 : true
+  return matchesSearch && matchesFilter
+  }) ?? []
+
+  
 
   if (isLoading) return (
     <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
@@ -37,7 +42,7 @@ function ProductsPage() {
     <div>
       <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4 mb-8">
         <h1 className="text-3xl font-bold text-gray-800">
-          {search ? `Results for "${search}"` : 'Products'}
+          {filter === 'almost-gone' ? 'Almost Gone' : search ? `Results for "${search}"` : 'Products'}
         </h1>
         {search && (
           <Link
@@ -46,7 +51,14 @@ function ProductsPage() {
           >
             Clear search →
           </Link>
+          )}
+        {filter === 'almost-gone' && (
+          <Link to="/products" className="text-blue-500 hover:underline text-sm">
+            View all products →
+          </Link>
         )}
+
+
       </div>
 
       {filtered.length === 0 ? (
