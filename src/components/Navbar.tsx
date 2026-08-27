@@ -31,13 +31,22 @@ function Navbar() {
     <nav className="bg-gray-900 text-white px-6 py-4">
       <div className="container mx-auto flex justify-between items-center">
 
-        {/* Logo */}
-        <Link to="/" className="flex items-center gap-2">
-          <img src={logo} alt="Obolus" className="h-8 w-auto" />
-          <span className="text-2xl font-bold text-white hover:text-gray-300 transition-colors">
-            Obolus
-          </span>
-        </Link>
+        {/* Logo + My Products on desktop */}
+        <div className="flex items-center gap-6">
+          <Link to="/" className="flex items-center gap-2">
+            <img src={logo} alt="Obolus" className="h-8 w-auto" />
+            <span className="text-2xl font-bold text-white hover:text-gray-300 transition-colors">
+              Obolus
+            </span>
+          </Link>
+
+          {/* My Products — desktop only, left side */}
+          {user && (
+            <Link to="/my-products" className="hidden md:block hover:text-gray-300 transition-colors">
+              My Products
+            </Link>
+          )}
+        </div>
 
         {/* Right side */}
         <div className="flex items-center gap-4">
