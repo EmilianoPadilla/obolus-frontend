@@ -117,7 +117,7 @@ function HomePage() {
           </div>
           <div className="grid grid-cols-2 md:grid-cols-2 lg:grid-cols-4 gap-4">
             {lowStockProducts.map((product: Product) => (
-              <div key={product.id} className="relative">
+              <div key={product.id} className="relative rounded-lg overflow-hidden">
                 <div className="absolute top-2 right-2 bg-red-500 text-white text-xs px-2 py-1 rounded-full z-10">
                   Only {product.stock} left!
                 </div>
