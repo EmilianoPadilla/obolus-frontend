@@ -79,7 +79,7 @@ function HomePage() {
           All products listed are only for demonstration purposes. 
         </p>
       
-        <p className="absolute bottom-3 right-4 text-sm text-gray-400 ">
+        <p className="absolute bottom-3 right-4 text-xs text-gray-400 ">
           Developed by Emiliano Padilla
         </p>
       </section>
