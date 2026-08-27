@@ -122,6 +122,11 @@ function HomePage() {
                 View all →
               </Link>
             </div>
+          <div className="grid grid-cols-2 md:grid-cols-2 lg:grid-cols-4 gap-4">
+            {lowStockProducts.map((product: Product) => (
+              <ProductCard key={product.id} product={product} showBadge={true} />
+            ))}
+          </div>
         </section>
       )}
 
