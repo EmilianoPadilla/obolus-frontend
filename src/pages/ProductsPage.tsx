@@ -1,13 +1,12 @@
-import { useState } from 'react'
 import { useQuery } from '@tanstack/react-query'
-import { Link } from 'react-router-dom'
+import { Link, useSearchParams } from 'react-router-dom'
 import { getProducts } from '../api/products'
 import { Skeleton } from '@/components/ui/skeleton'
-import { Input } from '@/components/ui/input'
 import type { Product } from '../types'
 
 function ProductsPage() {
-  const [search, setSearch] = useState('')
+  const [searchParams] = useSearchParams()
+  const search = searchParams.get('search') ?? ''
 
   const { data: products, isLoading, isError } = useQuery({
     queryKey: ['products'],
@@ -37,24 +36,25 @@ function ProductsPage() {
   return (
     <div>
       <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4 mb-8">
-        <h1 className="text-3xl font-bold text-gray-800">Products</h1>
-        <Input
-          placeholder="Search products..."
-          value={search}
-          onChange={(e) => setSearch(e.target.value)}
-          className="w-full md:w-64"
-        />
+        <h1 className="text-3xl font-bold text-gray-800">
+          {search ? `Results for "${search}"` : 'Products'}
+        </h1>
+        {search && (
+          <Link
+            to="/products"
+            className="text-blue-500 hover:underline text-sm"
+          >
+            Clear search →
+          </Link>
+        )}
       </div>
 
-      {filtered.length === 0 && search ? (
+      {filtered.length === 0 ? (
         <div className="text-center py-16">
           <p className="text-gray-500 text-lg">No products found for "{search}"</p>
-          <button
-            onClick={() => setSearch('')}
-            className="text-blue-500 hover:underline mt-2"
-          >
-            Clear search
-          </button>
+          <Link to="/products" className="text-blue-500 hover:underline mt-2 inline-block">
+            View all products
+          </Link>
         </div>
       ) : (
         <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
