@@ -39,7 +39,7 @@ function Footer() {
           {/* Developer */}
           <div className="flex flex-col gap-2">
             <h3 className="font-bold text-lg mb-1">Developer</h3>
-            <p className="text-gray-400 text-sm">Learn more about Emiliano Padilla:</p>
+            <p className="text-gray-400 text-sm">Learn more about the developer:</p>
             <a
               href="https://github.com/EmilianoPadilla"
               target="_blank"
@@ -66,7 +66,7 @@ function Footer() {
             © 2025 Obolus. All rights reserved.
           </p>
           <p className="text-gray-500 text-sm">
-            Developed by Emiliano Padilla Robles
+            Developed by Emiliano Padilla
           </p>
         </div>
       </div>
